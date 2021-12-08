@@ -1,4 +1,12 @@
 import { Server } from "socket.io";
+import fs from 'fs'
+import createRoom from "../helpers/createRoom";
+import createMsg from "../helpers/createMsg";
+import createUser from "../helpers/createUser";
+
+const messages = require('../db/messages.json')
+const rooms = require('../db/rooms.json')
+const users = require('../db/users.json')
 
 const socket = () => {
     const server = new Server({
@@ -7,6 +15,10 @@ const socket = () => {
         },
     });
 
+    console.log(messages)
+    console.log(rooms)
+    console.log(users)
+    
     server.on("connection", (socket) => {
         console.log("new connection.", socket.id);
 
@@ -16,12 +28,28 @@ const socket = () => {
 
         socket.on('login', (data) => {
             console.log(data)
-            socket.join(data.email); // We are using room of socket io
+
+            createUser(users, data)
         });
 
-        socket.on("chat message", (data) => {
-            server.emit("chat message", data);
+        socket.on("room::join", ({ room, email1, email2 }) => {
+
+            socket.join(room);
+            
+            createRoom(rooms, users, room, email1, email2)
         });
+    
+        socket.on("room::message::send", ({ room, message }) => {
+            server.to(room).emit("room::message::send", { room, message });
+
+            createMsg(rooms, users, messages, room, message, email1, email2)
+        });
+
+        
+
+        // socket.on("chat message", (data) => {
+        //     server.emit("chat message", data);
+        // });
 
         // socket.on("room::join", ({ room }) => {
         //     const tab = {
@@ -49,13 +77,7 @@ const socket = () => {
         //     socket.join(room);
         // });
 
-        // socket.on("room::join", ({ room }) => {
-        //     socket.join(room);
-        // });
-    
-        // socket.on("room::message::send", ({ room, message }) => {
-        //     server.to(room).emit("room::message::send", { room, message });
-        // });
+        
     })
 
     
