@@ -1,5 +1,4 @@
 import { Server } from "socket.io";
-import fs from 'fs'
 import createRoom from "../helpers/createRoom";
 import createMsg from "../helpers/createMsg";
 import createUser from "../helpers/createUser";
@@ -27,22 +26,17 @@ const socket = () => {
         });
 
         socket.on('login', (data) => {
-            console.log(data)
-
             createUser(users, data)
         });
 
         socket.on("room::join", ({ room, email1, email2 }) => {
-
             socket.join(room);
-            
-            createRoom(rooms, users, room, email1, email2)
+            // createRoom(rooms, users, room, email1, email2)
         });
     
-        socket.on("room::message::send", ({ room, message }) => {
-            server.to(room).emit("room::message::send", { room, message });
-
-            createMsg(rooms, users, messages, room, message, email1, email2)
+        socket.on("room::message::send", ({ room, nick, message }) => {
+            server.to(room).emit("room::message::receive", { user: nick, message: message, });
+            // createMsg(rooms, users, messages, room, message, email1, email2)
         });
 
         

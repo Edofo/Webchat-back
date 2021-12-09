@@ -1,14 +1,1 @@
-[
-    {
-        "id": 1,
-        "name": "SALUT",
-        "image": "SALUT",
-        "email": "n@e.a"
-    },
-    {
-        "id": 2,
-        "name": "SALUT",
-        "image": "SALUT",
-        "email": "n@e.a"
-    }
-]
+[{"id":1,"name":"SALUT","image":"SALUT","email":"n@e.a"},{"id":2,"name":"SALUT","image":"SALUT","email":"n@e.a"},{"id":3,"name":"Edofo lol","image":"https://lh3.googleusercontent.com/a/AATXAJxW0WuLY9UmyAhr51ZwknijMKqPtoIWVSozhiNa=s96-c","email":"noltize2@gmail.com"}]
