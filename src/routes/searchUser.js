@@ -5,11 +5,15 @@ const searchUser = (req, res) => {
         const users = require('../db/users.json')
 
         const emailSearch = req.body.search
+        const emailUser = req.body.emailUser
         
         const usersList = []
 
         users.forEach((x) => {
             if (x.email.toLowerCase().indexOf(emailSearch.toLowerCase()) > -1) {
+                if(x.email === emailUser) {
+                    return
+                }
                 usersList.push(x)
             }
         })

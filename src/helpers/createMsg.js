@@ -1,39 +1,55 @@
-const createMsg = (rooms, users, messages, room, message, email1, email2) => {
-    const roomExist = rooms.filter((x) => x.name === room)
+import fs from 'fs'
+import { type } from 'os'
 
-    if(roomExist) {
-        return
-    }
+const createMsg = (rooms, users, messages, room, message, email1, email2, type) => {
 
-    const user1Exist = users.filter((x) => x.email === email1)
-    const user2Exist = users.filter((x) => x.email === email2)
+    try {
 
-    if(!user1Exist || !user2Exist) {
-        return
-    }
+        const roomExist = rooms.filter((x) => x.name === room)
 
-    const dateNow = new Date()
 
-    messages.push({
-        id: messages.length + 1,
-        user_id: user1Exist.id,
-        room_id: roomExist.id,
-        usersList: [
-            {
-                user_id: user2Exist.id, 
+        if(roomExist[0] === undefined) {
+            return
+        }
+
+        const user1Exist = users.filter((x) => x.email === email1)
+        const user2Exist = users.filter((x) => x.email === email2)
+
+        if(user1Exist[0] === undefined || user2Exist[0] === undefined) {
+            return
+        }
+        
+        const dateNow = new Date()
+
+        messages.push({
+            id: messages.length + 1,
+            author_email: user1Exist[0].email,
+            room_id: roomExist[0].id,
+            type: type,
+            usersList: [
+                {
+                    user_id: user2Exist[0].id, 
+                }
+            ],
+            content: message,
+            created_at: dateNow
+        })
+
+        const json = JSON.stringify(messages)
+
+        fs.writeFile('src/db/messages.json', json, 'utf8', (err) => {
+            console.log(err)
+            if (err) {
+                return
             }
-        ],
-        content: message,
-        created_at: dateNow
-    })
+            console.log('Data written to file')
+        })
 
-    const json = JSON.stringify(messages)
+        return
 
-    console.log(json)
-
-    // fs.writeFile('myjsonfile.json', json, 'utf8')
-
-    return
+    } catch(err) {
+        throw err
+    }
 }
 
 export default createMsg
