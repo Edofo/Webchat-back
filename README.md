@@ -8,6 +8,10 @@
   </a>
 </p>
 
+<p align="center">
+<img src="https://media4.giphy.com/media/s2Qvrs9q56N2BWVvTg/giphy.gif" width="480" height="270"/>
+</p>
+
 ## Introduction
 
 > This webchat made with Next and Scoketio.
@@ -45,7 +49,7 @@ After run this command :
 npm run dev 
 ```
 
-Don't forget to download the following repo: https://github.com/Edofo/Webchat-back
+Don't forget to download the following repo: https://github.com/Edofo/Webchat-front
 
 ## Author
 
