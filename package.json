@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "babel ./src --out-dir ./build",
-    "start": "nodemon --exec babel-node src/index.js",
+    "start": "npx nodemon --exec babel-node src/index.js",
     "lint": "eslint ."
   },
   "author": "",
@@ -20,10 +20,14 @@
     "prettier": "^2.5.1"
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "eslint": "^8.4.1",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.25.3",
-    "eslint-plugin-prettier": "^4.0.0"
+    "eslint-plugin-prettier": "^4.0.0",
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
+    "socket.io": "^4.4.0"
   }
 }
