@@ -46,7 +46,7 @@ npm i
 After run this command :
 
 ```bash 
-npm run dev 
+npm start 
 ```
 
 Don't forget to download the following repo: https://github.com/Edofo/Webchat-front
